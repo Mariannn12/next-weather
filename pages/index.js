@@ -18,6 +18,7 @@ import { AuthOptions } from '../pages/api/auth/[...nextauth]';
 export async function getServerSideProps(ctx){
 
   const session = await getSession(ctx)
+  console.log(session)
 
   if(!session){
     return{
@@ -71,8 +72,8 @@ export const Recent = ({session,recentLocations}) =>{
 
     <div className='card-container' style={{display : 'flex', flexWrap : 'wrap', padding:30}}>
 
-      {recentLocations.length && recentLocations.map((element)=>(
-            <Card sx={{minWidth: 150, margin : 2}} align="center">
+      {recentLocations.length && recentLocations.map((element,idx)=>(
+            <Card sx={{minWidth: 150, margin : 2}} align="center" key={idx}>
               <CardContent>
                 <Tooltip title="Delete"><IconButton onClick={async ()=>{await fetch('/api/mongo/deleteuserlocation', {method:"POST", headers:{"Content-Type" : "application/json"},body: JSON.stringify({email: usersession.user.email, place_id : element.place_id})}); setLocations(locations.filter((place) => place.place_id !== element.place_id))}}><Delete/></IconButton></Tooltip>
               </CardContent>
@@ -117,6 +118,8 @@ export default function SearchPlaces({userRecentLoc,userSession,googlekey}) {
   const [usersession, setUsersession] = React.useState({});
   const [userDetails, setUserDetails] = React.useState({});
   const loaded = React.useRef(false)
+
+  console.log(userSession)
 
   if(typeof window !== 'undefined' && !loaded.current){
     if(!document.querySelector('#google-maps')){

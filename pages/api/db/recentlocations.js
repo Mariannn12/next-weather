@@ -17,6 +17,10 @@ async function joinWeatherLocation(id,lat,lon,location,place_id){
 
 }
 
+export const config = {
+    runtime: 'edge',
+  };
+
 export default async function getRecentLocations (req,res){
     try{
 

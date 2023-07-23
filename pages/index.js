@@ -14,12 +14,11 @@ import CardMedia from '@mui/material/CardMedia';
 import CardActionArea from '@mui/material/CardActionArea';
 import _fetch from 'isomorphic-fetch';
 import { authOptions } from './api/auth/[...nextauth]';
+import Login from './login'
 
+/*
 
 export async function getServerSideProps(ctx){
-
-
-  //const session = await (await fetch('http://localhost:3000/api/auth/authenticate')).json()
 
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
   console.log(session)
@@ -32,6 +31,7 @@ export async function getServerSideProps(ctx){
     }
   }
 
+ 
   return{
     props:{
       userSession : session,
@@ -39,9 +39,9 @@ export async function getServerSideProps(ctx){
       googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
     }
   }
-  
-}
 
+}
+*/
 function loadScript(src, position, id){
 
   if(!position){
@@ -56,7 +56,9 @@ function loadScript(src, position, id){
   
 }
 
-export default function SearchPlaces({userSession,googlekey}){
+export default function SearchPlaces(/*{userSession,googlekey}*/){
+
+  /*
 
   const loaded = React.useRef(false)
 
@@ -97,12 +99,12 @@ export default function SearchPlaces({userSession,googlekey}){
     })()
 
   },[])
-
+  */
   return (
     <>
-      <ResponsiveAppBar logOut={signOut} session={userSession}/>
-      <SearchAnyLocation/>
-      <h1>the user is authenticated</h1>
+
+    <Login/>
+     
         
     </>
   );

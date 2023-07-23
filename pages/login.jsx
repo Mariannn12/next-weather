@@ -6,9 +6,7 @@ import { useRouter} from 'next/router'
 const Login= () =>{
     const {data:session} = useSession({required:true})
     const router = useRouter();
-    React.useEffect(()=>{
-        
-    },[])
+ 
 
     
     if(session){

@@ -13,7 +13,7 @@ import _fetch from 'isomorphic-fetch';
 export default function UserRecentLocation({userSession,locations}){
 
     const [internalLocations, setInternalLocations] = React.useState(locations)
-    console.log(internalLocations)
+    
     return(
         <div className='card-container' style={{display : 'flex', flexWrap : 'wrap', padding:30}}>
 

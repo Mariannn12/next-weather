@@ -2,6 +2,8 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '@/src/Components/NavBar';
 import {useSession,signIn,signOut,getSession} from 'next-auth/react'
+import {getServerSession} from 'next-auth/next'
+
 import SearchAnyLocation from '@/src/Components/Search';
 import { Delete } from '@mui/icons-material';
 import UserRecentLocation from '@/src/Components/RecentUserLocations';
@@ -12,12 +14,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CardActionArea from '@mui/material/CardActionArea';
 import _fetch from 'isomorphic-fetch';
-import { AuthOptions } from '../pages/api/auth/[...nextauth]';
+import { authOptions } from './api/auth/[...nextauth]';
 
 
 export async function getServerSideProps(ctx){
 
-  const session = await getSession(ctx)
+  //fetch('http://localhost:3000/api/auth/authenticate').then((response)=> console.log("i got the response from api directory:", response))
+
+
+  //const session = await (await fetch('http://localhost:3000/api/auth/authenticate')).json()
+
+
+  const session = await getServerSession(ctx.req, ctx.res, authOptions)
   console.log(session)
 
   if(!session){

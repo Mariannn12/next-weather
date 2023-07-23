@@ -1,7 +1,5 @@
 import {MongoClient} from 'mongodb'
-export const config = {
-    runtime: 'edge',
-  };
+
 export default async function handler(req,res){
     const uri = process.env.MONGO_STRCON
     const client = new MongoClient(uri)

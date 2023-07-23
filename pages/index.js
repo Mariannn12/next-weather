@@ -28,12 +28,10 @@ export async function getServerSideProps(ctx){
     return{
       redirect : {
         destination : '/login',
-        permanent: false,
       },
     }
   }
 
-  
   return{
     props:{
       userSession : session,

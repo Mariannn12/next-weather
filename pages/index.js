@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import ResponsiveAppBar from '@/src/Components/NavBar';
 import {useSession,signIn,signOut,getSession} from 'next-auth/react'
 import {getServerSession} from 'next-auth/next'
-
 import SearchAnyLocation from '@/src/Components/Search';
 import { Delete } from '@mui/icons-material';
 import UserRecentLocation from '@/src/Components/RecentUserLocations';
@@ -20,7 +19,6 @@ import { authOptions } from './api/auth/[...nextauth]';
 export async function getServerSideProps(ctx){
 
 
-
   //const session = await (await fetch('http://localhost:3000/api/auth/authenticate')).json()
 
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
@@ -35,7 +33,7 @@ export async function getServerSideProps(ctx){
     }
   }
 
-
+  
   return{
     props:{
       userSession : session,
@@ -43,6 +41,7 @@ export async function getServerSideProps(ctx){
       googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
     }
   }
+  
 }
 
 function loadScript(src, position, id){
@@ -59,7 +58,7 @@ function loadScript(src, position, id){
   
 }
 
-export default function SearchPlaces({userSession,googlekey}) {
+export default function SearchPlaces({userSession,googlekey}){
 
   const loaded = React.useRef(false)
 
@@ -101,25 +100,12 @@ export default function SearchPlaces({userSession,googlekey}) {
 
   },[])
 
-  if(userSession){
-
-    return (
-      <>
-        <ResponsiveAppBar logOut={signOut} session={userSession}/>
-        <SearchAnyLocation/>
-        <h1>the user is authenticated</h1>
+  return (
+    <>
+      <ResponsiveAppBar logOut={signOut} session={userSession}/>
+      <SearchAnyLocation/>
+      <h1>the user is authenticated</h1>
         
-      </>
-    );
-          
-  }else{
-
-    return(
-      <div>
-        <p>You are not signed in.</p>
-        <button onClick={()=>signIn()}></button>
-      </div>
-    )
-
-  }
+    </>
+  );
 }

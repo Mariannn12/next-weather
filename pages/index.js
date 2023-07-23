@@ -19,11 +19,9 @@ import { authOptions } from './api/auth/[...nextauth]';
 
 export async function getServerSideProps(ctx){
 
-  //fetch('http://localhost:3000/api/auth/authenticate').then((response)=> console.log("i got the response from api directory:", response))
 
 
   //const session = await (await fetch('http://localhost:3000/api/auth/authenticate')).json()
-
 
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
   console.log(session)
@@ -41,68 +39,10 @@ export async function getServerSideProps(ctx){
   return{
     props:{
       userSession : session,
-      userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${session.user.email}`)).json(),
+      //userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${session.user.email}`)).json(),
       googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
     }
   }
-}
-
-export const Recent = ({session,recentLocations}) =>{
-  
-  //const [locations, setLocations] = React.useState([]);
-  //const [usersession, setUsersession] = React.useState({});
-
-  React.useEffect(()=>{
-
-    ;(async()=>{
-
-      await fetch('http://localhost:3000/api/mongo/postuser',{
-        method : 'POST',
-        headers:{
-          "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-          name : session.user.name,
-          email : session.user.email,
-          created_at : new Date().toLocaleString(),
-          recentplaces : []
-        })
-      })
-
-      //setLocations(await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${session.user.email}`)).json()) 
-      console.log(locations)
-
-    })()
-    
-  },[])
-
-  return(
-
-    <div className='card-container' style={{display : 'flex', flexWrap : 'wrap', padding:30}}>
-
-      {recentLocations.length && recentLocations.map((element,idx)=>(
-            <Card sx={{minWidth: 150, margin : 2}} align="center" key={idx}>
-              <CardContent>
-                <Tooltip title="Delete"><IconButton onClick={async ()=>{await fetch('/api/mongo/deleteuserlocation', {method:"POST", headers:{"Content-Type" : "application/json"},body: JSON.stringify({email: usersession.user.email, place_id : element.place_id})}); setLocations(locations.filter((place) => place.place_id !== element.place_id))}}><Delete/></IconButton></Tooltip>
-              </CardContent>
-              
-              <CardActionArea href={`/search/${element.place_id}`} >
-                
-                <CardMedia sx={{height: 100,width:100}} image={`https://openweathermap.org/img/wn/${element.icon}@2x.png`}/>
-                <CardContent className={element.place_id}>
-                  
-                  <Typography>Last update(place local time): {element.dt}</Typography>
-                  <Typography variant="h6">{element.location}</Typography>
-                  <Typography>{element.feels_like}°C</Typography>
-                  <Typography>{element.main_description}</Typography>
-                </CardContent>
-              </CardActionArea>
-              
-            </Card>
-      ))}
-  
-    </div>
-  )
 }
 
 function loadScript(src, position, id){
@@ -119,12 +59,8 @@ function loadScript(src, position, id){
   
 }
 
-export default function SearchPlaces({userRecentLoc,userSession,googlekey}) {
+export default function SearchPlaces({userSession,googlekey}) {
 
-  const {data:session} = useSession({required : true,})
-  const [locations, setLocations] = React.useState(userRecentLoc)
-  const [usersession, setUsersession] = React.useState({});
-  const [userDetails, setUserDetails] = React.useState({});
   const loaded = React.useRef(false)
 
   console.log(userSession)
@@ -160,10 +96,6 @@ export default function SearchPlaces({userRecentLoc,userSession,googlekey}) {
 
       })
 
-      /*
-      setLocations(await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${userSession.user.email}`)).json())
-      console.log(locations)
-      */
       
     })()
 
@@ -175,7 +107,8 @@ export default function SearchPlaces({userRecentLoc,userSession,googlekey}) {
       <>
         <ResponsiveAppBar logOut={signOut} session={userSession}/>
         <SearchAnyLocation/>
-        <UserRecentLocation userSession={userSession} locations={userRecentLoc}/>
+        <h1>the user is authenticated</h1>
+        
       </>
     );
           

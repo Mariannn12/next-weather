@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import ResponsiveAppBar from '@/src/Components/NavBar';
+
 import {useSession,signIn,signOut,getSession} from 'next-auth/react'
 import {getServerSession} from 'next-auth/next'
 import SearchAnyLocation from '@/src/Components/Search';
-import { Delete } from '@mui/icons-material';
+
 import UserRecentLocation from '@/src/Components/RecentUserLocations';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -21,7 +20,7 @@ import Login from './login'
 export async function getServerSideProps(ctx){
 
 
-  /*
+  
   const session = await getSession(ctx)
   console.log(session)
 
@@ -32,14 +31,12 @@ export async function getServerSideProps(ctx){
       },
     }
   }
-*/
+
  
   return{
     props:{
-      //userSession : session,
-      userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=duca_mariano@yahoo.it`)).json(),
-      googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
-    }
+      userSession : session,
+      
   }
 
 }

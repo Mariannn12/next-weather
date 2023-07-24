@@ -20,7 +20,7 @@ import Login from './login'
 
 export async function getServerSideProps(ctx){
 
-  const session = await getServerSession(ctx.req, ctx.res, authOptions)
+  const session = await getSession(ctx)
   console.log(session)
 
   if(!session){
@@ -36,7 +36,7 @@ export async function getServerSideProps(ctx){
     props:{
       userSession : session,
       //userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${session.user.email}`)).json(),
-      googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
+      //googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
     }
   }
 

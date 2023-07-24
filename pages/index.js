@@ -20,6 +20,8 @@ import Login from './login'
 
 export async function getServerSideProps(ctx){
 
+
+  /*
   const session = await getSession(ctx)
   console.log(session)
 
@@ -30,13 +32,13 @@ export async function getServerSideProps(ctx){
       },
     }
   }
-
+*/
  
   return{
     props:{
-      userSession : session,
-      //userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${session.user.email}`)).json(),
-      //googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
+      //userSession : session,
+      userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${session.user.email}`)).json(),
+      googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
     }
   }
 
@@ -103,7 +105,7 @@ export default function SearchPlaces(/*{userSession,googlekey}*/){
   return (
     <>
 
-    <Login/>
+    
      
         
     </>

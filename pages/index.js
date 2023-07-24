@@ -16,9 +16,7 @@ import { authOptions } from './api/auth/[...nextauth]';
 import Login from './login'
 
 
-
 export async function getServerSideProps(ctx){
-
 
   ctx.res.setHeader(
     "Cache-Control",

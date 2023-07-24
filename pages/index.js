@@ -37,7 +37,7 @@ export async function getServerSideProps(ctx){
   return{
     props:{
       //userSession : session,
-      userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=${session.user.email}`)).json(),
+      userRecentLoc : await (await fetch(`http://localhost:3000/api/db/recentlocations?email=duca_mariano@yahoo.it`)).json(),
       googlekey : await(await fetch(`http://localhost:3000/api/googleapikey`)).json()
     }
   }

@@ -16,7 +16,7 @@ import _fetch from 'isomorphic-fetch';
 import { authOptions } from './api/auth/[...nextauth]';
 import Login from './login'
 
-/*
+
 
 export async function getServerSideProps(ctx){
 
@@ -41,7 +41,7 @@ export async function getServerSideProps(ctx){
   }
 
 }
-*/
+
 function loadScript(src, position, id){
 
   if(!position){

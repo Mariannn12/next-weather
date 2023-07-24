@@ -20,7 +20,10 @@ import Login from './login'
 export async function getServerSideProps(ctx){
 
 
-  
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=1800, stale-while-revalidate=86400"
+  )
   const session = await getSession(ctx)
   console.log(session)
 

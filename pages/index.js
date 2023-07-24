@@ -40,6 +40,7 @@ export async function getServerSideProps(ctx){
   }
 
 }
+}
 
 function loadScript(src, position, id){
 
